@@ -1,4 +1,4 @@
-pragma solidity ^0.4.24;
+pragma solidity ^0.5.2;
 
 import "./ERC20.sol";
 
@@ -7,29 +7,20 @@ import "./ERC20.sol";
  * @dev Token that can be irreversibly burned (destroyed).
  */
 contract ERC20Burnable is ERC20 {
+    /**
+     * @dev Burns a specific amount of tokens.
+     * @param value The amount of token to be burned.
+     */
+    function burn(uint256 value) public {
+        _burn(msg.sender, value);
+    }
 
-  /**
-   * @dev Burns a specific amount of tokens.
-   * @param value The amount of token to be burned.
-   */
-  function burn(uint256 value) public {
-    _burn(msg.sender, value);
-  }
-
-  /**
-   * @dev Burns a specific amount of tokens from the target address and decrements allowance
-   * @param from address The address which you want to send tokens from
-   * @param value uint256 The amount of token to be burned
-   */
-  function burnFrom(address from, uint256 value) public {
-    _burnFrom(from, value);
-  }
-
-  /**
-   * @dev Overrides ERC20._burn in order for burn and burnFrom to emit
-   * an additional Burn event.
-   */
-  function _burn(address who, uint256 value) internal {
-    super._burn(who, value);
-  }
+    /**
+     * @dev Burns a specific amount of tokens from the target address and decrements allowance
+     * @param from address The account whose tokens will be burned.
+     * @param value uint256 The amount of token to be burned.
+     */
+    function burnFrom(address from, uint256 value) public {
+        _burnFrom(from, value);
+    }
 }
